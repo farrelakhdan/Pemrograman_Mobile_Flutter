@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:statefull_widget_map/widget/Convert.dart';
+import 'package:statefull_widget_map/widget/Result.dart';
+
+import 'widget/input.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,20 +19,37 @@ class _MyAppState extends State<MyApp> {
   double _inputUser = 0;
   double _kelvin = 0;
   double _reamur = 0;
-  final inputController = TextEditingController();
+  TextEditingController inputController = TextEditingController();
   String _newValue = "Kelvin";
   double _result = 0;
   var listItem = ["Kelvin", "Reamur"];
-  List<String> listViewItem = <String>[];
+  List<String> listViewItem = [];
+
+  double value = 0.0;
+
+  RangeValues values = RangeValues(0.0, 100.0);
 
   //rumus
   void perhitunganSuhu() {
     setState(() {
-      _inputUser = double.parse(inputController.text);
-      if (_newValue == "Kelvin")
-        _result = _inputUser + 273;
-      else
-        _result = (4 / 5) * _inputUser;
+      print(listViewItem.length);
+      switch (_newValue) {
+        case "Kelvin":
+          {
+            // statements;
+            _result = _inputUser + 273;
+            listViewItem.add("Kelvin : " + "$_result");
+          }
+          break;
+
+        case "Reamur":
+          {
+            //statements;
+            _result = _inputUser * 4 / 5;
+            listViewItem.add("Reamur : " + "$_result");
+          }
+          break;
+      }
     });
   }
 
@@ -50,19 +71,20 @@ class _MyAppState extends State<MyApp> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              TextFormField(
-                controller: inputController,
-                decoration: InputDecoration(
-                  hintText: "Masukkan Suhu Dalam Celcius",
-                ),
-                keyboardType: TextInputType.number,
-                validator: (value) {
-                  if (!RegExp(r'^[0-9]+$').hasMatch(value!)) {
-                    return "Hanya memasukkan angka";
-                  } else {
-                    return null;
-                  }
-                },
+              Text(
+                "$_inputUser",
+                style: TextStyle(fontSize: 25),
+              ),
+              Slider(
+                label: _inputUser.abs().toString(),
+                value: _inputUser,
+                min: 0.0,
+                max: 1000.0,
+                onChanged: ((val) {
+                  setState(() {
+                    _inputUser = val;
+                  });
+                }),
               ),
               Container(
                 child: Column(
@@ -79,91 +101,40 @@ class _MyAppState extends State<MyApp> {
                         setState(() {
                           _newValue = changeValue!;
                         });
+                        perhitunganSuhu();
                       },
                     )
                   ],
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.orange, width: 2),
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Column(
-                      children: [
-                        const Text("Suhu Dalam Reamor"),
-                        Text(
-                          '$_result',
-                          style: TextStyle(fontSize: 40),
-                        )
-                      ],
-                    ),
-                  )
-                ],
-              ),
               Container(
-                width: double.infinity,
-                height: 30,
-                margin: EdgeInsets.all(10),
-                color: Colors.blue,
-                child: Column(
+                margin: EdgeInsets.only(top: 20, bottom: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    TextButton(
-                      onPressed: perhitunganSuhu,
-                      child: const Text(
-                        "Konversi Suhu",
-                        style: TextStyle(
-                          color: Colors.black,
-                        ),
-                      ),
+                    Result(
+                      result: _result,
                     ),
                   ],
                 ),
               ),
-              Container(
-                margin: EdgeInsets.only(top: 10, bottom: 10),
-                child: Text(
-                  "Riwayat Konversi",
-                  style: TextStyle(fontSize: 20),
-                ),
+              Convert(konvertHandler: perhitunganSuhu),
+              Text(
+                "Riwayat Konversi",
+                style: TextStyle(fontSize: 25),
               ),
+              Expanded(
+                  child: (ListView(
+                children: listViewItem.map((String value) {
+                  return Container(
+                    child: Text(value),
+                  );
+                }).toList(),
+              )))
             ],
           ),
         ),
       ),
     );
-  }
-}
-
-class Result extends StatelessWidget {
-  const Result({
-    required Key key,
-    required this.result,
-  }) : super(key: key);
-
-  final double result;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(top: 20, bottom: 20),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            "Hasil",
-            style: TextStyle(fontSize: 20),
-          ),
-          Text(
-            result.toStringAsFixed(1),
-            style: TextStyle(fontSize: 30),
-          )
-        ],
-      ),
-    );
-    // );
   }
 }
