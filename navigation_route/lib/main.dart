@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 void main() {
   runApp(const MyApp());
@@ -75,41 +78,123 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+      body: ListView(
+        children: [
+          Container(
+            padding: EdgeInsets.all(10),
+            color: Colors.grey,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                const Text('BERITA TERBARU'),
+                const Text('PERTANDINGAN HARI INI')
+              ],
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+          ),
+          Container(
+            margin: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+                border: Border.all(color: Colors.purple, width: 2)),
+            child: Column(
+              children: [
+                Image.network(
+                    'https://akcdn.detik.net.id/community/media/visual/2022/02/24/piala-dunia-2022_169.jpeg?w=700&q=90'),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: const Text(
+                    'Putin Semakin Botak',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+                Container(
+                  width: double.infinity,
+                  color: Colors.purpleAccent,
+                  padding: EdgeInsets.all(10),
+                  child: const Text('Transfer'),
+                )
+              ],
             ),
-          ],
-        ),
+          ),
+          Container(
+            margin: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+                border: Border.all(color: Colors.green, width: 2)),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Image.network(
+                      'https://asset.kompas.com/crops/qTOMAABXhyE9PCaUXNu9dWFL4Us=/337x30:1261x646/750x500/data/photo/2022/09/22/632c5b3155997.jpg',
+                      width: 150,
+                      height: 100,
+                    ),
+                    Container(
+                      width: 150,
+                      height: 100,
+                      alignment: Alignment.center,
+                      child: const Text(
+                        'Putin: Tak Masuk Akal Bagi Kami Pakai Senjata Nuklir di Ukraina',
+                        style: TextStyle(),
+                      ),
+                    )
+                  ],
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.green, width: 1)),
+                ),
+                Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(10),
+                  child: const Text('Moskow, Oktober 28, 2022'),
+                )
+              ],
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+                border: Border.all(color: Colors.green, width: 2)),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Image.network(
+                      'https://asset.kompas.com/crops/qTOMAABXhyE9PCaUXNu9dWFL4Us=/337x30:1261x646/750x500/data/photo/2022/09/22/632c5b3155997.jpg',
+                      width: 150,
+                      height: 100,
+                    ),
+                    Container(
+                      width: 150,
+                      height: 100,
+                      alignment: Alignment.center,
+                      child: const Text(
+                        'Putin: Tak Masuk Akal Bagi Kami Pakai Senjata Nuklir di Ukraina',
+                        style: TextStyle(),
+                      ),
+                    )
+                  ],
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.green, width: 1)),
+                ),
+                Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(10),
+                  child: const Text('Moskow, Oktober 28, 2022'),
+                )
+              ],
+            ),
+          )
+        ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
