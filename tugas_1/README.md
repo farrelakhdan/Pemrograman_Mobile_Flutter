@@ -1,16 +1,5 @@
 # tugas_1
 
 A new Flutter project.
+![image](https://user-images.githubusercontent.com/88138426/201821316-b6f4b4c1-b3a7-4c7e-97df-94e86f2b62f6.png)
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
