@@ -5,6 +5,7 @@ import 'dart:js';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
+import 'package:project/page/home.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -16,13 +17,16 @@ class Login extends StatefulWidget {
 TextEditingController emailController = TextEditingController();
 TextEditingController passwordController = TextEditingController();
 
-Future<void> getLogin(String email, String password) async {
+Future<void> getLogin(
+    String email, String password, BuildContext context) async {
   Map data = {'email': email, 'password': password};
   var jsonData = null;
   var response =
       await http.post(Uri.parse('https://reqres.in/api/login'), body: data);
   if (response.statusCode == 200) {
-    print('yes');
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (BuildContext context) => HomePage()),
+        (Route<dynamic> route) => false);
   } else {
     print('error');
   }
@@ -116,7 +120,7 @@ Widget buildPassword() {
   );
 }
 
-Widget buildLoginBtn() {
+Widget buildLoginBtn(BuildContext context) {
   return Container(
     padding: const EdgeInsets.symmetric(vertical: 25),
     width: double.infinity,
@@ -124,7 +128,7 @@ Widget buildLoginBtn() {
       elevation: 5,
       onPressed: () {
         getLogin(emailController.text.toString(),
-            passwordController.text.toString());
+            passwordController.text.toString(), context);
       },
       padding: const EdgeInsets.all(15),
       shape: RoundedRectangleBorder(
@@ -187,7 +191,7 @@ class _LoginState extends State<Login> {
                         height: 20,
                       ),
                       buildPassword(),
-                      buildLoginBtn(),
+                      buildLoginBtn(context),
                     ],
                   ),
                 ),
